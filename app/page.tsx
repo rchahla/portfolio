@@ -1,13 +1,17 @@
 "use client";
 
 import About from "@/components/About";
+import Experince from "@/components/Experince";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Head from "next/head";
 
 export default function Home() {
   return (
-    <div className="bg-stone-950 text-white h-screen snap-y snap-mandatory overflow-y-scroll z-0 scrollbar scrollbar-track-none scrollbar-thumb-[#F7AB0A]/80 ">
+    <div
+      className="bg-black text-white h-screen snap-y snap-proximity  overflow-y-hidden overflow-x-hidden z-0 scrollbar 
+    scrollbar-track-none scrollbar-thumb-[#F7AB0A]/80 "
+    >
       <Head>
         <title>Riad's Portfolio</title>
       </Head>
@@ -16,12 +20,12 @@ export default function Home() {
 
       {/* Hero */}
 
-      <section id="hero" className="snap-start">
+      <section id="hero" className="snap-start min-h-screen">
         <Hero />
       </section>
 
       {/* About */}
-      <section id="about" className="snap-center">
+      <section id="about" className="snap-start min-h-screen">
         <About />
       </section>
 

@@ -23,11 +23,21 @@ export default function Header({}: Props) {
         transition={{
           duration: 1,
         }}
-        className="flex flex-row items-center space-x-3"
+        className="flex flex-row items-center space-x-5"
       >
         {/* Social Icons */}
-        <SocialIcon url="https://www.linkedin.com/in/riad-chahla" />
-        <SocialIcon url="https://github.com/rchahla" />
+        <SocialIcon
+          className="hover:scale-125 transition-transform rounded-full duration-300 hover:shadow-[0_0_20px_rgba(10,102,194,0.8)]"
+          url="https://www.linkedin.com/in/riad-chahla"
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+        <SocialIcon
+          className="hover:scale-125 transition-transform rounded-full duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+          url="https://github.com/rchahla"
+          target="_blank"
+          rel="noopener noreferrer"
+        />
       </motion.div>
 
       <motion.div
@@ -47,7 +57,7 @@ export default function Header({}: Props) {
         className="flex flex-row items-center space-x-2 text-gray-400 cursor-pointer "
       >
         <SocialIcon
-          className="cursor-pointer"
+          className="rounded-full hover:scale-125 transition-transform duration-300 hover:shadow-[0_0_20px_rgba(250,204,21,0.7)]"
           network="email"
           //   fgColor="gray"
           //   bgColor="transparent"

@@ -1,6 +1,7 @@
 import React from "react";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
+import StarsBackground from "./StarsBackground";
 import Link from "next/link";
 
 type Props = {};
@@ -19,7 +20,8 @@ export default function Hero({}: Props) {
   });
 
   return (
-    <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+    <div className="relative h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+      <StarsBackground />
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
