@@ -20,11 +20,14 @@ export default function About({}: Props) {
   const stacks = useCountUp(5, isInView);
   const ui = useCountUp(10, isInView);
   return (
-    <div className="relative w-full h-screen flex flex-col items-center text-center  px-6 md:px-20 overflow-x-hidden overflow-y-scroll scrollbar-track-none scrollbar-thumb-[#F7AB0A]/80">
-      <StarsBackground />
+    <div
+      className="relative w-full h-screen flex flex-col items-center text-center  px-6 md:px-20 overflow-x-hidden 
+    overflow-y-hidden scrollbar-track-none scrollbar-thumb-[#F7AB0A]/80"
+    >
+      {/* <StarsBackground /> */}
       {/* <Particles count={100} /> */}
 
-      <h3 className=" mt-24  uppercase tracking-[20px] text-3xl ">About</h3>
+      <h3 className=" mt-24  uppercase tracking-[20px] text-3xl  ">About</h3>
 
       {/* Room 3D Model */}
 
