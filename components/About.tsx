@@ -1,14 +1,27 @@
-import React from "react";
 import { useRef } from "react";
-import { useInView } from "framer-motion";
+import { useInView, motion } from "framer-motion";
 import { useCountUp } from "../hooks/useCountUp";
-import { motion } from "framer-motion";
-import portfolioImg from "../Images/Portfolio-img2.png";
-import AboutExperience from "./AboutModels/AboutExperience";
-import StarsBackground from "./StarsBackground";
-import Particles from "./AboutModels/Particles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowDown } from "@fortawesome/free-solid-svg-icons";
+import SkillsSection from "./SkillsSection";
+
+type StatCardProps = { value: number; label: string };
+
+function StatCard({ value, label }: StatCardProps) {
+  return (
+    <div className="border border-white bg-black rounded-lg p-5 xl:p-7 text-left">
+      <div className="flex items-start gap-0.5">
+        <span className="text-4xl font-bold leading-none">{value}</span>
+        <span className="text-2xl font-extrabold leading-none mt-0.5">+</span>
+      </div>
+      <p className="uppercase text-sm font-semibold flex items-center mt-3">
+        <span className="hidden sm:inline-block mr-2 min-w-7.5 h-0.5 bg-gray-500 shrink-0"></span>
+        <span className="sm:pl-2 pl-0 leading-snug">{label}</span>
+      </p>
+    </div>
+  );
+}
+
 type Props = {};
 
 export default function About({}: Props) {
@@ -19,223 +32,140 @@ export default function About({}: Props) {
   const projects = useCountUp(15, isInView);
   const stacks = useCountUp(5, isInView);
   const ui = useCountUp(10, isInView);
+
   return (
-    <div
-      className="relative w-full h-screen flex flex-col items-center text-center  px-6 md:px-20 overflow-x-hidden 
-    overflow-y-hidden scrollbar-track-none scrollbar-thumb-[#F7AB0A]/80"
-    >
-      {/* <StarsBackground /> */}
-      {/* <Particles count={100} /> */}
+    <div className="relative w-full min-h-screen flex flex-col items-center px-6 md:px-20 overflow-x-hidden">
+      <h3 className="mt-24 uppercase tracking-[20px] text-3xl text-center">
+        About
+      </h3>
 
-      <h3 className=" mt-24  uppercase tracking-[20px] text-3xl  ">About</h3>
-
-      {/* Room 3D Model */}
-
-      <figure>
+      <div className="w-full max-w-6xl mt-12 flex flex-col lg:flex-row lg:items-start lg:gap-16 pb-16">
+        {/* Left column: personal info + resume button */}
         <motion.div
-          initial={{
-            opacity: 0,
-            x: -200,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{ duration: 2 }}
-          className="hero-3d-layout  "
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex-1 text-left"
         >
-          <AboutExperience />
+          <h1 className="uppercase text-2xl font-extrabold mb-5">
+            Personal <span className="text-yellow-500">Info</span>
+          </h1>
+
+          <div className="grid grid-cols-2 gap-4 mb-10 max-w-xl">
+            <p>
+              <span className="text-white/60 block sm:inline">Name:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                Riad Chahla
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">Age:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                22
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">Address:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                Ontario, Canada
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">
+                Nationality:
+              </span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                Canadian
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">
+                Favourite Stack:
+              </span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                React, TypeScript, Node.js
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">Email:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                rchahla2@uwo.ca
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">Languages:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                English, Arabic
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white/60 block sm:inline">
+                Availability:
+              </span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                Remote &amp; On-site
+              </span>
+            </p>
+
+            <p className="col-span-2">
+              <span className="text-white/60 block sm:inline">Education:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                University of Western Ontario - Dean&apos;s Honour List
+              </span>
+            </p>
+
+            <p className="col-span-2">
+              <span className="text-white/60 block sm:inline">Hobbies:</span>{" "}
+              <span className="font-semibold text-white block sm:inline">
+                Gym, Traveling, Coding, Cooking, Hiking, Exploring
+              </span>
+            </p>
+          </div>
+
+          <a
+            href="/riad_chahla_cv.pdf"
+            download
+            className="group flex items-center bg-black justify-between border cursor-pointer rounded-4xl text-left
+              w-50 h-12 uppercase text-sm font-semibold transition-all duration-300
+              hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.4)]"
+          >
+            <span className="pl-3">Download Resume</span>
+            <FontAwesomeIcon
+              className="scale-250 pr-2 text-white transition-all duration-300 group-hover:text-yellow-400 group-hover:translate-y-0.5"
+              icon={faCircleArrowDown}
+            />
+          </a>
         </motion.div>
-      </figure>
 
-      <motion.div
-        initial={{
-          opacity: 0,
-          x: 200,
-        }}
-        whileInView={{
-          opacity: 1,
-          x: 0,
-        }}
-        transition={{ duration: 2 }}
-        className="absolute w-full h-[40%] bottom-0  xl:w-[50%] right-0 xl:h-[80%] text-left pl-4"
-      >
-        <h1 className="uppercase text-2xl font-extrabold mb-5">
-          Personal <span className="text-yellow-500">Info</span>{" "}
-        </h1>
-
-        <div className="grid grid-cols-2 gap-4 mb-10 max-w-xl ">
-          <p>
-            <span className="text-white/60 block sm:inline">Name:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              Riad Chahla
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Age:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">22</span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Address:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              Ontario, Canada
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Nationality:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              Canadian
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">
-              Favourite Stack:
-            </span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              React, TypeScript, Node.js
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Email:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              rchahla2@uwo.ca
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Languages:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              English, Arabic
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Availability:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              Remote & On-site
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Education:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              University of Western Ontario
-            </span>
-          </p>
-
-          <p>
-            <span className="text-white/60 block sm:inline">Hobbies:</span>{" "}
-            <span className="font-semibold text-white block sm:inline">
-              Gym, Traveling, Coding, Cooking, Hiking, Exploring
-            </span>
-          </p>
-        </div>
-
-        <a
-          href="/riad_chahla_cv.pdf"
-          download
-          className="group flex items-center bg-black  justify-between border cursor-pointer  rounded-4xl text-left   
-        w-50 h-12 uppercase text-sm font-semibold mb-7 transition-all duration-300
-         hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.4)]  "
-        >
-          <span className="pl-3">Download Resume</span>
-          <FontAwesomeIcon
-            className="right-0 scale-250 pr-2   text-white transition-all duration-300 group-hover:text-yellow-400 group-hover:translate-y-0.5"
-            icon={faCircleArrowDown}
-          />
-        </a>
-
-        <div
+        {/* Right column: 2x2 stat cards */}
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
           ref={ref}
-          className="grid grid-cols-2 sm:grid-cols-2 gap-4 max-w-xl mr-2 : "
+          className="lg:w-[45%] shrink-0 mt-12 lg:mt-0"
         >
-          <div
-            className="border border-white bg-black rounded-lg p-6 items-center text-left sm:pt-5 pt-4 sm:pr-7 
-            pr-5 sm:pb-6 pb-5 sm:pl-6 xl:pl-10 pl-4 sm:mb-7 mb-6   
-                 "
-          >
-            <div className="relative flex items-start">
-              <span className="text-4xl font-bold leading-none">{years}</span>
-              <span className="absolute -top-1 pl-5 text-2xl font-extrabold">
-                +
-              </span>
-            </div>
-            <div>
-              <p className="uppercase text-sm font-semibold flex mt-2 ml-1">
-                <span className="hidden sm:inline-block mr-2 min-w-[30px] h-[2px] bg-gray-500 mt-2"></span>
-                <span className="sm:pl-2 pl-0 sm:text-base text-sm">
-                  Years of Experience
-                </span>
-              </p>
-            </div>
+          <div className="grid grid-cols-2 gap-4">
+            <StatCard value={years} label="Years of Experience" />
+            <StatCard value={projects} label="Projects Built" />
+            <StatCard value={stacks} label="Tech Stacks Used" />
+            <StatCard value={ui} label="UI Components Designed / Built" />
           </div>
-          <div
-            className=" border border-white bg-black rounded-lg p-6 items-center text-left sm:pt-5 pt-4 sm:pr-7 
-            pr-5 sm:pb-6 pb-5 sm:pl-6 xl:pl-10 pl-4 sm:mb-7 mb-6 "
-          >
-            <div className="relative flex items-start">
-              <span className="text-4xl font-bold leading-none">
-                {projects}
-              </span>
-              <span className="absolute -top-1 pl-10 text-2xl font-extrabold">
-                +
-              </span>
-            </div>
-            <div>
-              <p className="uppercase text-sm font-semibold flex mt-2 ml-1 ">
-                <span className="hidden sm:inline-block mr-2 min-w-[30px] h-[2px] bg-gray-500 mt-2"></span>
-                <span className="sm:pl-2 pl-0 sm:text-base text-sm  ">
-                  Projects Built
-                </span>
-              </p>
-            </div>
-          </div>
+        </motion.div>
+      </div>
 
-          <div
-            className="border border-white bg-black rounded-lg p-6 items-center text-left sm:pt-5 pt-4 sm:pr-7 
-            pr-5 sm:pb-6 pb-5 sm:pl-6 xl:pl-10 pl-4 sm:mb-7 mb-6"
-          >
-            <div className="relative flex items-start">
-              <span className="text-4xl font-bold leading-none">{stacks}</span>
-              <span className="absolute -top-1 pl-5 text-2xl font-extrabold">
-                +
-              </span>
-            </div>
-            <div>
-              <p className="uppercase text-sm font-semibold flex mt-2 ml-1">
-                <span className="hidden sm:inline-block mr-2 min-w-[30px] h-[2px] bg-gray-500 mt-2"></span>
-                <span className="sm:pl-2 pl-0 sm:text-base text-sm">
-                  Tech Stacks Used
-                </span>
-              </p>
-            </div>
-          </div>
-          <div
-            className="border border-white bg-black rounded-lg p-6 items-center text-left sm:pt-5 pt-4 sm:pr-7 
-            pr-5 sm:pb-6 pb-5 sm:pl-6 xl:pl-10 pl-4 sm:mb-7 mb-6"
-          >
-            <div className="relative flex items-start">
-              <span className="text-4xl font-bold leading-none">{ui}</span>
-              <span className="absolute -top-1 pl-11 text-2xl font-extrabold">
-                +
-              </span>
-            </div>
-            <div>
-              <p className="uppercase text-sm font-semibold flex mt-2 ml-1">
-                <span className="hidden sm:inline-block mr-2 min-w-[30px] h-[2px] bg-gray-500 mt-2"></span>
-                <span className="sm:pl-2 pl-0 sm:text-base text-sm">
-                  UI Components Designed / Built
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Divider */}
+      <div className="w-full max-w-6xl h-px bg-linear-to-r from-transparent via-white/10 to-transparent mb-12" />
+
+      {/* Skills — spans full content width below the two-column block */}
+      <SkillsSection />
     </div>
   );
 }

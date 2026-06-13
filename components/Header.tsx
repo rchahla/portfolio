@@ -8,7 +8,7 @@ type Props = {};
 
 export default function Header({}: Props) {
   return (
-    <header className="flex sticky top-0 justify-between max-w-7xl mx-auto z-20 p-5 xl:items-center">
+    <header className="bg-transparent flex sticky top-0 justify-between max-w-7xl mx-auto z-20 p-5 xl:items-center">
       <motion.div
         initial={{
           x: -500,
@@ -23,7 +23,7 @@ export default function Header({}: Props) {
         transition={{
           duration: 1,
         }}
-        className="flex flex-row items-center space-x-5"
+        className="hidden lg:flex flex-row items-center space-x-5"
       >
         {/* Social Icons */}
         <SocialIcon
@@ -54,7 +54,7 @@ export default function Header({}: Props) {
         transition={{
           duration: 1,
         }}
-        className="flex flex-row items-center space-x-2 text-gray-400 cursor-pointer "
+        className="hidden lg:flex flex-row items-center space-x-2 text-gray-400 cursor-pointer"
       >
         <SocialIcon
           className="rounded-full hover:scale-125 transition-transform duration-300 hover:shadow-[0_0_20px_rgba(250,204,21,0.7)]"

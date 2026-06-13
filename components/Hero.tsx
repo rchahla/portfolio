@@ -21,11 +21,11 @@ export default function Hero({}: Props) {
 
   return (
     <div className="relative h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
-      <StarsBackground />
+      {/* <StarsBackground /> */}
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
-        src="https://media.licdn.com/dms/image/v2/D4E03AQGRbp9k-ZysYw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718252449616?e=1781136000&v=beta&t=6FgpXp0oAdkoQtWA01IhHx_TFYZYDm_MOBUlGsal1T0"
+        src="https://media.licdn.com/dms/image/v2/D4E03AQGRbp9k-ZysYw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718252449637?e=1782950400&v=beta&t=VcTTiKSDl6FPAjTXaDX2_xT5bldlCeNfqcM2SacqhxU"
         alt=""
       />
 
@@ -38,7 +38,7 @@ export default function Hero({}: Props) {
           <Cursor cursorColor="orange" />
         </h1>
 
-        <div className="pt-5">
+        {/* <div className="pt-5">
           <Link href="#about">
             <button className="heroButton">About</button>
           </Link>
@@ -47,14 +47,14 @@ export default function Hero({}: Props) {
             <button className="heroButton">Experince</button>
           </Link>
 
-          <Link href="#skills">
-            <button className="heroButton">Skills</button>
-          </Link>
-
           <Link href="#projects">
             <button className="heroButton">Projects</button>
           </Link>
-        </div>
+
+          <Link href="#contact">
+            <button className="heroButton">Contact</button>
+          </Link>
+        </div> */}
       </div>
     </div>
   );

@@ -1,66 +1,90 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-type Props = {};
+export type Experience = {
+  role: string;
+  company: string;
+  dates: string;
+  logoSrc?: string;
+  logoAlt: string;
+  logoBg: string;
+  logoInitials?: string;
+  tech?: { src: string; alt: string }[];
+  bullets: string[];
+};
 
-function ExperinceCard({}: Props) {
+type Props = {
+  experience: Experience;
+  index?: number;
+};
+
+function ExperinceCard({ experience, index = 0 }: Props) {
   return (
-    <article
-      className="flex flex-col rounded-lg space-y-7 shrink-0 
-      items-center bg-[#292929] opacity-40  
-    group hover:scale-105 transition-transform hover:opacity-100 cursor-pointer overflow-hidden 
-    w-[500px]  snap-center p-10 mt-10  "
+    <motion.div
+      initial={{ opacity: 0, x: -24 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.55, delay: index * 0.15, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="relative pl-14 pb-10 last:pb-0"
     >
-      <motion.div
-        initial={{
-          y: -100,
-          opacity: 0,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true }}
-        className="w-32 h-32  rounded-full bg-amber-50 flex items-center justify-center"
+      {/* Timeline dot — centered over the vertical line at left-5 */}
+      <div
+        className="absolute left-0 top-1 w-10 h-10 rounded-full border-2 border-[#F7AB0A] flex items-center justify-center shadow-[0_0_14px_rgba(247,171,10,0.3)] shrink-0 overflow-hidden"
+        style={{ backgroundColor: experience.logoBg }}
       >
-        <img
-          className="w-[70%] h-[70%] object-contain"
-          src="https://upload.wikimedia.org/wikipedia/commons/9/91/Bell_logo.svg"
-          alt="Bell Logo"
-        />
-      </motion.div>
-
-      <div className="px-0 md:px-10">
-        <h4 className="text-4xl font-light">Junior Data Analyst</h4>
-        <p className="font-bold text-2xl mt-1">Bell Canada</p>
-        <div className="flex space-x-2 my-2">
+        {experience.logoSrc ? (
           <img
-            src="https://devicon-website.vercel.app/api/javascript/original.svg"
-            alt="JavaScript"
-            className="w-10 h-10"
+            className="w-[58%] h-[58%] object-contain"
+            src={experience.logoSrc}
+            alt={experience.logoAlt}
           />
-          <img
-            src="https://devicon-website.vercel.app/api/javascript/original.svg"
-            alt="JavaScript"
-            className="w-10 h-10"
-          />
-          <img
-            src="https://devicon-website.vercel.app/api/javascript/original.svg"
-            alt="JavaScript"
-            className="w-10 h-10"
-          />
-        </div>
-        <p className="uppercase py-5 opacity-80">Started.....</p>
-
-        <ul className="list-disc space-y-4 ml-5 text-lg">
-          <li>Summary Points</li>
-          <li>Summary Points</li>
-          <li>Summary Points</li>
-          <li>Summary Points</li>
-        </ul>
+        ) : (
+          <span className="text-xs font-bold text-white tracking-tight">
+            {experience.logoInitials ?? experience.logoAlt.slice(0, 2)}
+          </span>
+        )}
       </div>
-    </article>
+
+      {/* Card */}
+      <article
+        className="bg-[#1e1e1e] rounded-xl p-5 sm:p-7 cursor-pointer
+          border border-white/5
+          hover:border-[#F7AB0A]/25 hover:bg-[#252525]
+          hover:shadow-[0_8px_30px_rgba(0,0,0,0.45)]
+          transition-all duration-300"
+      >
+        {/* Header row */}
+        <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 mb-4">
+          <div>
+            <h4 className="text-lg sm:text-xl font-semibold leading-snug">
+              {experience.role}
+            </h4>
+            <p className="text-[#F7AB0A] font-medium text-sm sm:text-base mt-0.5">
+              {experience.company}
+            </p>
+          </div>
+          <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap pt-0.5">
+            {experience.dates}
+          </span>
+        </div>
+
+        {/* Tech stack icons */}
+        {experience.tech && experience.tech.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {experience.tech.map(({ src, alt }) => (
+              <img key={alt} src={src} alt={alt} title={alt} className="w-7 h-7" />
+            ))}
+          </div>
+        )}
+
+        {/* Bullet points */}
+        <ul className="list-disc ml-4 space-y-1.5 text-sm sm:text-base text-gray-300 leading-relaxed">
+          {experience.bullets.map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
+        </ul>
+      </article>
+    </motion.div>
   );
 }
 
