@@ -11,13 +11,14 @@ const EXPERIENCES: Experience[] = [
     role: "Junior Data Analyst",
     company: "Bell Canada",
     dates: "Jun 2024 – Dec 2024",
-    logoSrc: "https://upload.wikimedia.org/wikipedia/commons/9/91/Bell_logo.svg",
+    logoSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/9/91/Bell_logo.svg",
     logoAlt: "Bell Canada",
     logoBg: "#ffffff",
     tech: [
       { src: di("postgresql"), alt: "SQL / PostgreSQL" },
-      { src: di("python"),     alt: "Python" },
-      { src: di("azure"),      alt: "Azure" },
+      { src: di("python"), alt: "Python" },
+      { src: di("azure"), alt: "Azure" },
     ],
     bullets: [
       "Queried large operational databases with SQL to resolve client escalations and deliver targeted analytical reports",
@@ -34,44 +35,48 @@ const EXPERIENCES: Experience[] = [
     logoBg: "#4F2D7F",
     logoInitials: "W",
     tech: [
-      { src: di("html5"),      alt: "HTML5" },
-      { src: di("css3"),       alt: "CSS3" },
+      { src: di("html5"), alt: "HTML5" },
+      { src: di("css3"), alt: "CSS3" },
       { src: di("javascript"), alt: "JavaScript" },
-      { src: di("bootstrap"),  alt: "Bootstrap" },
-      { src: di("git"),        alt: "Git" },
+      { src: di("bootstrap"), alt: "Bootstrap" },
+      { src: di("git"), alt: "Git" },
     ],
     bullets: [
       "Built responsive UI components for an Italian cultural exhibition website using HTML, CSS, JavaScript, and Bootstrap",
       "Managed version control in a team environment with Git and GitHub — coordinating branches and resolving merge conflicts",
       "Contributed across the full project lifecycle, from design implementation to delivery, within a collaborative development team",
+      "Participated in weekly stakeholder meetings to report progress and incorporate new design requirements into ongoing development",
     ],
   },
 ];
 
 const EDUCATION: Experience[] = [
   {
-    role: "Bachelor of Science — Computer Science",
+    role: "Bachelor of Engineering Science — Software Engineering",
     company: "University of Western Ontario",
-    dates: "Sep 2021 – Apr 2025",
+    dates: "Sep 2022 – Apr 2026",
     logoAlt: "Western University",
     logoBg: "#4F2D7F",
     logoInitials: "W",
     bullets: [
       "Dean's Honour List recipient",
-      "Placeholder: relevant coursework, specializations, or academic achievements",
-      "Placeholder: notable project, thesis, or capstone description",
+      "Graduated with an 88% final-year average across advanced software engineering courses.",
+      "Selected for and completed an RBC-sponsored capstone project, collaborating with industry stakeholders to deliver a real-world software solution.",
+      "Member of the Western Taekwondo Club during first year, balancing academics with training and competition commitments.",
     ],
   },
   {
     role: "Ontario Secondary School Diploma",
-    company: "Placeholder High School",
-    dates: "Sep 2017 – Jun 2021",
+    company: "Saint André Bessette Secondary School",
+    dates: "Sep 2018 – Jun 2022",
     logoAlt: "High School",
     logoBg: "#1e3a5f",
-    logoInitials: "HS",
+    logoInitials: "SAB",
     bullets: [
-      "Placeholder: academic honours or awards received",
-      "Placeholder: extracurricular activities or leadership roles",
+      "Graduated with an 88% academic average while pursuing technology-focused studies.",
+      "Completed the Specialist High Skills Major (SHSM) program in Information and Communications Technology.",
+      "Completed a cooperative education placement with Campus Creative, gaining hands-on experience in a professional marketing and technology environment.",
+      "Received the Grade 11 Communications Technology Subject Award for achieving the highest final mark in the course.",
     ],
   },
 ];
@@ -91,7 +96,6 @@ export default function Experince() {
       </motion.h1>
 
       <div className="max-w-4xl mx-auto">
-
         {/* ── PROFESSIONAL EXPERIENCE ──────────────────────────────── */}
         <motion.p
           initial={{ opacity: 0 }}
@@ -137,11 +141,11 @@ export default function Experince() {
                 key={entry.company}
                 experience={entry}
                 index={index}
+                datesBelow
               />
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

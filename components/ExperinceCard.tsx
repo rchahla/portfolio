@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 export type Experience = {
@@ -16,9 +15,10 @@ export type Experience = {
 type Props = {
   experience: Experience;
   index?: number;
+  datesBelow?: boolean;
 };
 
-function ExperinceCard({ experience, index = 0 }: Props) {
+function ExperinceCard({ experience, index = 0, datesBelow = false }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -24 }}
@@ -62,10 +62,17 @@ function ExperinceCard({ experience, index = 0 }: Props) {
             <p className="text-[#F7AB0A] font-medium text-sm sm:text-base mt-0.5">
               {experience.company}
             </p>
+            {datesBelow && (
+              <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                {experience.dates}
+              </p>
+            )}
           </div>
-          <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap pt-0.5">
-            {experience.dates}
-          </span>
+          {!datesBelow && (
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap pt-0.5">
+              {experience.dates}
+            </span>
+          )}
         </div>
 
         {/* Tech stack icons */}
