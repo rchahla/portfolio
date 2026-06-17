@@ -86,14 +86,17 @@ const EDUCATION: Experience[] = [
 export default function Experince() {
   return (
     <div className="w-full px-6 sm:px-10 pt-24 pb-24">
-      <motion.h1
+      <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center uppercase tracking-[12px] md:tracking-[18px] text-xl md:text-2xl mb-16"
+        className="flex flex-col items-center gap-4 mb-16"
       >
-        Experience &amp; Education
-      </motion.h1>
+        <h1 className="text-center uppercase tracking-[12px] md:tracking-[18px] text-xl md:text-2xl">
+          Experience &amp; Education
+        </h1>
+        <div className="w-20 h-px bg-linear-to-r from-transparent via-[#F7AB0A]/55 to-transparent" />
+      </motion.div>
 
       <div className="max-w-4xl mx-auto">
         {/* ── PROFESSIONAL EXPERIENCE ──────────────────────────────── */}

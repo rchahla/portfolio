@@ -10,6 +10,7 @@ export type Project = {
   description: string;
   videoUrl?: string;
   coverImage?: string;
+  imageContain?: boolean;
 };
 
 type Props = {
@@ -47,7 +48,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-[80] bg-black/75 backdrop-blur-sm"
+            className="fixed inset-0 z-80 bg-black/75 backdrop-blur-sm"
             aria-hidden="true"
           />
 
@@ -58,7 +59,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-8"
+            className="fixed inset-0 z-80 flex items-center justify-center p-4 sm:p-8"
             onClick={onClose}
           >
             {/* Modal box */}
@@ -167,7 +168,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       />
                     </div>
                   ) : (
-                    <div className="w-full aspect-video rounded-xl flex flex-col items-center justify-center gap-3 bg-white/[0.03] border border-dashed border-white/10">
+                    <div className="w-full aspect-video rounded-xl flex flex-col items-center justify-center gap-3 bg-white/3 border border-dashed border-white/10">
                       <svg
                         viewBox="0 0 24 24"
                         className="w-10 h-10 fill-white/15"

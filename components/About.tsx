@@ -35,9 +35,12 @@ export default function About({}: Props) {
 
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center px-6 md:px-20 overflow-x-hidden">
-      <h3 className="mt-24 uppercase tracking-[20px] text-3xl text-center">
-        About
-      </h3>
+      <div className="mt-24 flex flex-col items-center gap-4">
+        <h3 className="uppercase tracking-[20px] text-3xl text-center">
+          About
+        </h3>
+        <div className="w-20 h-px bg-linear-to-r from-transparent via-[#F7AB0A]/55 to-transparent" />
+      </div>
 
       <div className="w-full max-w-6xl mt-12 flex flex-col lg:flex-row lg:items-start lg:gap-16 pb-16">
         {/* Left column: personal info + resume button */}
