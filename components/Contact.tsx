@@ -18,12 +18,36 @@ function Contact({}: Props) {
   });
 
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {};
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setSent(false);
+    setError(false);
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formRef.current!,
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
+      );
+      setSent(true);
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -88,12 +112,25 @@ function Contact({}: Props) {
           </label>
           <button
             type="submit"
+            disabled={loading}
             className="bg-[#F7AB0A] py-3 px-8 rounded-xl outline-none w-fit
             text-black font-bold shadow-md
-            hover:shadow-black/90 transition duration-300 ease-in cursor-pointer"
+            hover:shadow-black/90 transition duration-300 ease-in cursor-pointer
+            disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? "Sending..." : "Send"}
           </button>
+
+          {sent && (
+            <p className="text-green-400 text-sm font-medium">
+              Message sent! I&apos;ll get back to you soon.
+            </p>
+          )}
+          {error && (
+            <p className="text-red-400 text-sm font-medium">
+              Something went wrong. Please try again.
+            </p>
+          )}
         </form>
       </motion.div>
 
