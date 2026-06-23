@@ -27,13 +27,13 @@ function Contact({}: Props) {
 
   return (
     <div
-      className="xl:min-h-full w-full max-w-7xl mx-auto px-6 sm:px-16 py-16 xl:py-0
+      className="xl:min-h-full w-full max-w-7xl mx-auto px-6 sm:px-16 py-16 xl:pt-14 xl:pb-0
       flex flex-col-reverse xl:flex-row xl:items-center gap-10 xl:gap-16"
     >
       {/* Contact Form — slides in from left */}
       <motion.div
         initial={{ x: "-100%", opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
+        animate={{ x: 0, opacity: 1 }}
         transition={{
           type: "tween",
           delay: 0.2,
@@ -100,7 +100,7 @@ function Contact({}: Props) {
       {/* Earth Canvas — slides in from right */}
       <motion.div
         initial={{ x: "100%", opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
+        animate={{ x: 0, opacity: 1 }}
         transition={{
           type: "tween",
           delay: 0.2,

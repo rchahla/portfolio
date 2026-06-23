@@ -9,6 +9,8 @@ export type Project = {
   preview?: string;
   description: string;
   videoUrl?: string;
+  demoImage?: string;
+  demoImageNatural?: boolean;
   coverImage?: string;
   imageContain?: boolean;
 };
@@ -18,8 +20,21 @@ type Props = {
   onClose: () => void;
 };
 
+function toEmbedUrl(url: string): string {
+  // youtu.be/ID or youtube.com/watch?v=ID → youtube.com/embed/ID
+  const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
+  if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}`;
+  const watchMatch = url.match(/youtube\.com\/watch\?.*v=([^?&]+)/);
+  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}`;
+  // vimeo.com/ID → player.vimeo.com/video/ID
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  return url;
+}
+
 export default function ProjectModal({ project, onClose }: Props) {
   const [mounted, setMounted] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -28,11 +43,18 @@ export default function ProjectModal({ project, onClose }: Props) {
   useEffect(() => {
     if (!project) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        if (lightbox) setLightbox(false);
+        else onClose();
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [project, onClose]);
+  }, [project, onClose, lightbox]);
+
+  useEffect(() => {
+    if (!project) setLightbox(false);
+  }, [project]);
 
   if (!mounted) return null;
 
@@ -152,39 +174,90 @@ export default function ProjectModal({ project, onClose }: Props) {
                 {/* Divider */}
                 <div className="my-8 h-px bg-linear-to-r from-transparent via-white/8 to-transparent" />
 
-                {/* Video section */}
+                {/* Demo section */}
                 <div>
-                  <p className="text-[11px] uppercase tracking-[3px] text-[#F7AB0A] font-semibold mb-4">
-                    Demo Video
-                  </p>
-                  {project.videoUrl ? (
-                    <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
-                      <iframe
-                        src={project.videoUrl}
-                        title={`${project.title} demo`}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="absolute inset-0 w-full h-full"
+                  {project.demoImage ? (
+                    project.demoImageNatural ? (
+                      <img
+                        src={project.demoImage}
+                        alt={`${project.title} preview`}
+                        onClick={() => setLightbox(true)}
+                        className="w-full max-h-72 object-contain rounded-xl cursor-zoom-in"
                       />
-                    </div>
-                  ) : (
-                    <div className="w-full aspect-video rounded-xl flex flex-col items-center justify-center gap-3 bg-white/3 border border-dashed border-white/10">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="w-10 h-10 fill-white/15"
-                        aria-hidden="true"
+                    ) : (
+                      <div
+                        className="relative w-full aspect-video rounded-xl overflow-hidden bg-black cursor-zoom-in"
+                        onClick={() => setLightbox(true)}
                       >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      <p className="text-[11px] uppercase tracking-[4px] text-white/25">
-                        Demo coming soon
+                        <img
+                          src={project.demoImage}
+                          alt={`${project.title} preview`}
+                          className="absolute inset-0 w-full h-full object-contain"
+                        />
+                      </div>
+                    )
+                  ) : (
+                    <>
+                      <p className="text-[11px] uppercase tracking-[3px] text-[#F7AB0A] font-semibold mb-4">
+                        Demo Video
                       </p>
-                    </div>
+                      {project.videoUrl ? (
+                        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
+                          {/youtube\.com|youtu\.be|vimeo\.com/.test(project.videoUrl) ? (
+                            <iframe
+                              src={toEmbedUrl(project.videoUrl)}
+                              title={`${project.title} demo`}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              className="absolute inset-0 w-full h-full"
+                            />
+                          ) : (
+                            <video
+                              src={project.videoUrl}
+                              controls
+                              className="absolute inset-0 w-full h-full object-contain"
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        <div className="w-full aspect-video rounded-xl flex flex-col items-center justify-center gap-3 bg-white/3 border border-dashed border-white/10">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="w-10 h-10 fill-white/15"
+                            aria-hidden="true"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                          <p className="text-[11px] uppercase tracking-[4px] text-white/25">
+                            Demo coming soon
+                          </p>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
             </motion.div>
           </motion.div>
+
+          {/* Lightbox */}
+          {lightbox && project.demoImage && (
+            <motion.div
+              key="lightbox"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setLightbox(false)}
+              className="fixed inset-0 z-90 bg-black/92 flex items-center justify-center p-6 cursor-zoom-out"
+            >
+              <img
+                src={project.demoImage}
+                alt={`${project.title} preview`}
+                className="max-w-full max-h-full object-contain rounded-xl"
+              />
+            </motion.div>
+          )}
         </>
       )}
     </AnimatePresence>,

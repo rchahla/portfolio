@@ -58,7 +58,7 @@ export default function Home() {
       id: "about",
       content: (
         <>
-          <About /> <Stars />{" "}
+          <About isActive={activeSection === "about"} /> <Stars />{" "}
         </>
       ),
     },

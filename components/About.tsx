@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useCountUp } from "../hooks/useCountUp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -22,16 +22,19 @@ function StatCard({ value, label }: StatCardProps) {
   );
 }
 
-type Props = {};
+type Props = { isActive?: boolean };
 
-export default function About({}: Props) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+export default function About({ isActive = false }: Props) {
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-  const years = useCountUp(1, isInView);
-  const projects = useCountUp(15, isInView);
-  const stacks = useCountUp(5, isInView);
-  const ui = useCountUp(10, isInView);
+  useEffect(() => {
+    if (isActive && !hasAnimated) setHasAnimated(true);
+  }, [isActive, hasAnimated]);
+
+  const years = useCountUp(1, hasAnimated);
+  const projects = useCountUp(15, hasAnimated);
+  const stacks = useCountUp(5, hasAnimated);
+  const ui = useCountUp(10, hasAnimated);
 
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center px-6 md:px-20 overflow-x-hidden">
@@ -46,7 +49,7 @@ export default function About({}: Props) {
         {/* Left column: personal info + resume button */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          animate={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
           transition={{ duration: 0.8 }}
           className="flex-1 text-left"
         >
@@ -150,9 +153,8 @@ export default function About({}: Props) {
         {/* Right column: 2x2 stat cards */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          animate={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
           transition={{ duration: 0.8 }}
-          ref={ref}
           className="lg:w-[45%] shrink-0 mt-12 lg:mt-0"
         >
           <div className="grid grid-cols-2 gap-4">
