@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import ExperinceCard, { type Experience } from "./ExperinceCard";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -83,7 +84,17 @@ const EDUCATION: Experience[] = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function Experince() {
+type Props = {
+  isActive?: boolean;
+};
+
+export default function Experince({ isActive }: Props) {
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    if (isActive && !hasAnimated) setHasAnimated(true);
+  }, [isActive, hasAnimated]);
+
   return (
     <div className="w-full px-6 sm:px-10 pt-24 pb-24">
       <motion.div
@@ -100,14 +111,9 @@ export default function Experince() {
 
       <div className="max-w-4xl mx-auto">
         {/* ── PROFESSIONAL EXPERIENCE ──────────────────────────────── */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.12 }}
-          className="text-[#F7AB0A] uppercase tracking-[6px] text-[11px] font-semibold mb-8"
-        >
+        <p className="text-[#F7AB0A] uppercase tracking-[6px] text-[11px] font-semibold mb-8">
           Professional Experience
-        </motion.p>
+        </p>
 
         <div className="relative max-w-2xl mb-16">
           <div className="absolute left-5 top-3 bottom-0 w-px bg-linear-to-b from-[#F7AB0A]/80 via-[#F7AB0A]/25 to-transparent" />
@@ -117,6 +123,7 @@ export default function Experince() {
                 key={experience.company}
                 experience={experience}
                 index={index}
+                forceAnimate={hasAnimated}
               />
             ))}
           </div>

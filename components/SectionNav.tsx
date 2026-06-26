@@ -6,7 +6,7 @@ import { SocialIcon } from "react-social-icons";
 const navItems = [
   { id: "hero", label: "Home" },
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
+  { id: "experience", label: "Experience & Education" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ] as const;
@@ -48,7 +48,7 @@ export default function SectionNav({ active, onNavigate }: Props) {
     <>
       {/* ── DESKTOP NAV (≥ 1024px) ───────────────────────────────────
           Unchanged from before — right-side vertical dot nav.         */}
-      <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-5 pr-4">
+      <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-5 pr-8">
         {navItems.map(({ id, label }) => (
           <button
             key={id}
@@ -59,7 +59,7 @@ export default function SectionNav({ active, onNavigate }: Props) {
             <span
               className="
                 overflow-hidden whitespace-nowrap text-sm font-medium text-white
-                max-w-0 group-hover:max-w-[160px]
+                max-w-0 group-hover:max-w-50
                 mr-0 group-hover:mr-3
                 opacity-0 group-hover:opacity-100
                 transition-all duration-300 ease-in-out

@@ -16,15 +16,20 @@ type Props = {
   experience: Experience;
   index?: number;
   datesBelow?: boolean;
+  forceAnimate?: boolean;
 };
 
-function ExperinceCard({ experience, index = 0, datesBelow = false }: Props) {
+function ExperinceCard({ experience, index = 0, datesBelow = false, forceAnimate }: Props) {
+  const animationProps =
+    forceAnimate !== undefined
+      ? { animate: { opacity: forceAnimate ? 1 : 0, x: forceAnimate ? 0 : -24 } }
+      : { whileInView: { opacity: 1, x: 0 }, viewport: { once: true } };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -24 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      {...animationProps}
       transition={{ duration: 0.55, delay: index * 0.15, ease: "easeOut" }}
-      viewport={{ once: true }}
       className="relative pl-14 pb-10 last:pb-0"
     >
       {/* Timeline dot — centered over the vertical line at left-5 */}

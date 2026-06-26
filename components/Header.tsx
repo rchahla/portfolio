@@ -99,7 +99,7 @@ export default function Header() {
           lightColor="#6eb5ff"
           baseColor="#0A66C2"
           darkColor="#053a78"
-          glowColor="rgba(10,102,194,0.8)"
+          glowColor="rgba(10,102,194,0.9)"
         >
           <svg
             viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ export default function Header() {
           lightColor="#6e7681"
           baseColor="#24292e"
           darkColor="#0a0c0d"
-          glowColor="rgba(255,255,255,0.5)"
+          glowColor="rgba(255,255,255,0.6)"
         >
           <svg
             viewBox="0 0 24 24"
@@ -140,7 +140,7 @@ export default function Header() {
           lightColor="white"
           baseColor="black"
           darkColor="white"
-          glowColor="rgba(247,171,10,0.7)"
+          glowColor="rgba(255,255,255,0.8)"
         >
           <svg
             viewBox="0 0 24 24"

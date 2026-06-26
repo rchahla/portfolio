@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -94,9 +94,9 @@ export default function ProjectModal({ project, onClose }: Props) {
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-title"
+              style={{ scrollbarWidth: "none" } as React.CSSProperties}
               className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto
-                bg-[#111] border border-white/10 rounded-2xl
-                scrollbar scrollbar-track-none scrollbar-thumb-[#F7AB0A]/60"
+                bg-[#111] border border-white/10 rounded-2xl hide-scrollbar"
             >
               {/* Sticky header: title + close button */}
               <div className="sticky top-0 z-10 bg-[#111] border-b border-white/8 px-6 sm:px-8 py-5">
@@ -129,7 +129,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                   {/* Languages — pill tags */}
                   <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
                     <span className="text-[11px] uppercase tracking-[3px] text-[#F7AB0A] font-semibold shrink-0 sm:w-28 sm:pt-1">
-                      Languages
+                      Stack
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {project.languages.map((lang) => (
@@ -172,7 +172,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                 </div>
 
                 {/* Divider */}
-                <div className="my-8 h-px bg-linear-to-r from-transparent via-white/8 to-transparent" />
+                <div className="my-4 h-px bg-linear-to-r from-transparent via-white/8 to-transparent" />
 
                 {/* Demo section */}
                 <div>
@@ -203,7 +203,9 @@ export default function ProjectModal({ project, onClose }: Props) {
                       </p>
                       {project.videoUrl ? (
                         <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
-                          {/youtube\.com|youtu\.be|vimeo\.com/.test(project.videoUrl) ? (
+                          {/youtube\.com|youtu\.be|vimeo\.com/.test(
+                            project.videoUrl,
+                          ) ? (
                             <iframe
                               src={toEmbedUrl(project.videoUrl)}
                               title={`${project.title} demo`}
