@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+export type BulletItem = string | { text: string; href: string; linkLabel: string };
+
 export type Experience = {
   role: string;
   company: string;
@@ -9,7 +11,7 @@ export type Experience = {
   logoBg: string;
   logoInitials?: string;
   tech?: { src: string; alt: string }[];
-  bullets: string[];
+  bullets: BulletItem[];
 };
 
 type Props = {
@@ -92,7 +94,30 @@ function ExperinceCard({ experience, index = 0, datesBelow = false, forceAnimate
         {/* Bullet points */}
         <ul className="list-disc ml-4 space-y-1.5 text-sm sm:text-base text-gray-300 leading-relaxed">
           {experience.bullets.map((point, i) => (
-            <li key={i}>{point}</li>
+            <li key={i}>
+              {typeof point === "string" ? (
+                point
+              ) : (
+                <span className="inline-flex items-center gap-2 flex-wrap">
+                  {point.text}
+                  <a
+                    href={point.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md
+                      text-[11px] font-semibold uppercase tracking-wide
+                      bg-[#F7AB0A]/15 text-[#F7AB0A] border border-[#F7AB0A]/30
+                      hover:bg-[#F7AB0A]/25 transition-colors duration-200"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-current" aria-hidden="true">
+                      <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
+                    </svg>
+                    {point.linkLabel}
+                  </a>
+                </span>
+              )}
+            </li>
           ))}
         </ul>
       </article>

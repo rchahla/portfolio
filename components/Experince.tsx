@@ -60,7 +60,7 @@ const EDUCATION: Experience[] = [
     logoBg: "#4F2D7F",
     logoInitials: "W",
     bullets: [
-      "Dean's Honour List recipient",
+      { text: "Dean's Honour List recipient", href: "/images/Dean's_Honour_List.pdf", linkLabel: "View PDF" },
       "Graduated with an 88% final-year average across advanced software engineering courses.",
       "Selected for and completed an RBC-sponsored capstone project, collaborating with industry stakeholders to deliver a real-world software solution.",
       "Member of the Western Taekwondo Club during first year, balancing academics with training and competition commitments.",
