@@ -149,6 +149,15 @@ function Projects() {
         </div>
       </div>
 
+      {/* Preload local videos in the background */}
+      <div className="hidden" aria-hidden="true">
+        {PROJECTS.filter(
+          (p) => p.videoUrl && !/youtube\.com|youtu\.be|vimeo\.com/.test(p.videoUrl)
+        ).map((p) => (
+          <video key={p.videoUrl} src={p.videoUrl} preload="auto" muted />
+        ))}
+      </div>
+
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

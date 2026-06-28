@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SocialIcon } from "react-social-icons";
 
 const navItems = [
@@ -20,10 +21,42 @@ type Props = {
 
 export default function SectionNav({ active, onNavigate }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+  const hintTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (localStorage.getItem("navHintSeen")) return;
+
+    const cycle = (initialDelay: number) => {
+      hintTimers.current.push(
+        setTimeout(() => {
+          setShowHint(true);
+          hintTimers.current.push(
+            setTimeout(() => {
+              setShowHint(false);
+              cycle(6000);
+            }, 4000),
+          );
+        }, initialDelay),
+      );
+    };
+
+    cycle(1200);
+    return () => hintTimers.current.forEach(clearTimeout);
+  }, []);
+
+  const dismissHint = () => {
+    hintTimers.current.forEach(clearTimeout);
+    hintTimers.current = [];
+    setShowHint(false);
+    localStorage.setItem("navHintSeen", "1");
+  };
 
   const handleNavigate = (id: SectionId) => {
     onNavigate(id);
     setMenuOpen(false);
+    dismissHint();
   };
 
   // Close on Escape key
@@ -46,9 +79,38 @@ export default function SectionNav({ active, onNavigate }: Props) {
 
   return (
     <>
+      {/* ── NAV HINT (desktop only, first visit only) ───────────────── */}
+      <AnimatePresence>
+        {showHint && (
+          <motion.div
+            key="nav-hint"
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 12 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="hidden lg:flex fixed right-24 top-[calc(50%-2.8rem)] -translate-y-1/2 z-50 items-center gap-2 pointer-events-none"
+          >
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-[11px] uppercase tracking-[2.5px] font-semibold text-white/70 whitespace-nowrap">
+                Navigate pages
+              </span>
+              <div className="w-full h-px bg-gradient-to-l from-[#F7AB0A]/50 to-transparent" />
+            </div>
+            {/* arrow pointing right toward the dots */}
+            <svg
+              viewBox="0 0 16 16"
+              className="w-3.5 h-3.5 fill-[#F7AB0A]/60 shrink-0"
+              aria-hidden="true"
+            >
+              <path d="M8.293 1.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L12.586 9H1a1 1 0 0 1 0-2h11.586L8.293 2.707a1 1 0 0 1 0-1.414z" />
+            </svg>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── DESKTOP NAV (≥ 1024px) ───────────────────────────────────
           Unchanged from before — right-side vertical dot nav.         */}
-      <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-5 pr-8">
+      <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-7 pr-14">
         {navItems.map(({ id, label }) => (
           <button
             key={id}
