@@ -25,7 +25,7 @@ export default function Hero({}: Props) {
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
-        src="https://media.licdn.com/dms/image/v2/D4E03AQGRbp9k-ZysYw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718252449637?e=1782950400&v=beta&t=VcTTiKSDl6FPAjTXaDX2_xT5bldlCeNfqcM2SacqhxU"
+        src="https://media.licdn.com/dms/image/v2/D4E03AQGRbp9k-ZysYw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718252449637?e=1784764800&v=beta&t=vlO_wgKs2g9sCbctFocNZTb_J7DM22-fgWKweLlVztg"
         alt=""
       />
 
